@@ -6,17 +6,28 @@ import json
 
 app = Flask(__name__)
 
-messages = []
+messages1 = []
+messages2 = []
 
-def on_message(client, userdata, msg):
-    messages.append(msg.payload.decode("utf-8"))
+def on_message1(client, userdata, msg):
+    messages1.append(msg.payload.decode("utf-8"))
     # print(msg.payload.decode("utf-8"))
 
-client = mqtt.Client()
-client.connect("test.mosquitto.org", 1883, 60)
-client.on_message = on_message
-client.subscribe("csc1010/randomstring/1/0x00178801047ee3b6")
-client.loop_start()
+def on_message2(client, userdata, msg):
+    messages2.append(msg.payload.decode("utf-8"))
+    # print(msg.payload.decode("utf-8"))
+
+client1 = mqtt.Client()
+client1.connect("test.mosquitto.org", 1883, 60)
+client1.on_message = on_message1
+client1.subscribe("csc1010/randomstring/1/0x00178801047ee3b6")
+client1.loop_start()
+
+client2 = mqtt.Client()
+client2.connect("test.mosquitto.org", 1883, 60)
+client2.on_message = on_message2
+client2.subscribe("csc1010/randomstring/pump/1")
+client2.loop_start()
 
 #brightness down
 def light_dim(client):
@@ -32,6 +43,14 @@ def light_off(client):
 def light_on(client):
     client.publish("csc1010/randomstring/1/0x00178801047ee3b6/set", payload=json.dumps(dict(state="on")))
 
+#system on
+def sys_on(client):
+    client.publish("csc1010/randomstring/pump/1/set", payload="on")
+
+#system off
+def sys_off(client):
+    client.publish("csc1010/randomstring/pump/1/set", payload="off")
+
 
 @app.route('/')
 def index():
@@ -40,36 +59,44 @@ def index():
 @app.route('/farm1', methods=['GET', 'POST'])
 def farm1():
 
-    status = ""
+    status1 = ""
+    status2 = ""
 
     if request.method == 'POST':
 
         light_status = request.form.get('light')
         system_status = request.form.get('system')
 
+        if system_status == "on":
+            sys_on(client2)
+        if system_status == "off":
+            sys_off(client2)
+
         if light_status == "on":
-            light_on(client)
+            light_on(client1)
         if light_status == "off":
-            light_off(client)
+            light_off(client1)
         if light_status == "dim":
-            light_dim(client)
+            light_dim(client1)
         if light_status == "bright":
-            light_bright(client)
+            light_bright(client1)
         time.sleep(1)
-        if len(messages) > 0:
-            status = messages.pop()
+        if len(messages2) > 0:
+            status2 = messages2.pop()
 
-    return render_template("farm1.html", l_status=status)
+        if len(messages1) > 0:
+            status1 = messages1.pop()
+
+    return render_template("farm1.html", l_status=status1, s_status=status2)
 
 
-@app.route('/farm2', methods=['GET', 'POST'])
+@app.route('/watertank', methods=['GET', 'POST'])
 def farm2():
 
     if request.method == 'POST':
         pass
 
-    return render_template("farm2.html")
+    return render_template("watertank.html")
 
 if __name__ == "__main__":
     app.run()
-    client.loop_forever()
