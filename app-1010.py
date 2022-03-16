@@ -3,11 +3,12 @@ from flask import Flask, render_template, request
 import paho.mqtt.client as mqtt
 import json
 
-app = Flask(__name__)
-
 # init mqtt app
 client = mqtt.Client()
 client.connect("test.mosquitto.org", 1883, 60)
+print(client)
+
+app = Flask(__name__)
 
 #brightness down
 def light_dim():
@@ -29,6 +30,7 @@ def index():
 
 @app.route('/farm1', methods=['GET', 'POST'])
 def farm1():
+    status = ""
 
     if request.method == 'POST':
 
@@ -44,7 +46,9 @@ def farm1():
         if light_status == "bright":
             light_bright()
 
-    return render_template("farm1.html")
+        # client.subscribe()
+
+    return render_template("farm1.html", status=status)
 
 
 @app.route('/farm2', methods=['GET', 'POST'])
