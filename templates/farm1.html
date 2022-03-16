@@ -16,14 +16,16 @@
             </p>
             <h1>Farm 1</h1>
             <p>Current Status: {{ status }}</p>
-            <form action="/farm2" method="post">
+            <form action="/farm1" method="post">
                 <p>Auto-Water Monitoring System</p>
                 <button id="btn" type="submit" value="on" name="system">On System</button>
                 <button id="btn" type="submit" value="off" name="system">Off System</button>
                 <hr>
                 <p>Farm-Light</p>
-                <button id="btn" type="submit" value="on" name="light">On Light</button>
-                <button id="btn" type="submit" value="off" name="light">Off Light</button>
+                <button id="btn" type="submit" value="on" name="light">On</button>
+                <button id="btn" type="submit" value="off" name="light">Off</button>
+                <button id="btn" type="submit" value="dim" name="light">Dim</button>
+                <button id="btn" type="submit" value="bright" name="light">Bright</button>
             </form>
             <br>
         </div>
