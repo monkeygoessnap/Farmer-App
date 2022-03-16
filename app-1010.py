@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 messages1 = []
 messages2 = []
+messages3 = []
 
 def on_message1(client, userdata, msg):
     messages1.append(msg.payload.decode("utf-8"))
@@ -15,6 +16,10 @@ def on_message1(client, userdata, msg):
 
 def on_message2(client, userdata, msg):
     messages2.append(msg.payload.decode("utf-8"))
+    # print(msg.payload.decode("utf-8"))
+
+def on_message3(client, userdata, msg):
+    messages3.append(msg.payload.decode("utf-8"))
     # print(msg.payload.decode("utf-8"))
 
 client1 = mqtt.Client()
@@ -28,6 +33,12 @@ client2.connect("test.mosquitto.org", 1883, 60)
 client2.on_message = on_message2
 client2.subscribe("csc1010/randomstring/pump/1")
 client2.loop_start()
+
+client3 = mqtt.Client()
+client3.connect("test.mosquitto.org", 1883, 60)
+client3.on_message = on_message3
+client3.subscribe("csc1010/randomstring/banksensor/1")
+client3.loop_start()
 
 #brightness down
 def light_dim(client):
@@ -93,10 +104,13 @@ def farm1():
 @app.route('/watertank', methods=['GET', 'POST'])
 def farm2():
 
+    status3 = ""
     if request.method == 'POST':
         pass
 
-    return render_template("watertank.html")
+    if len(messages3) > 0:
+        status3 = messages3.pop()
+    return render_template("watertank.html", w_status=status3)
 
 if __name__ == "__main__":
     app.run()
