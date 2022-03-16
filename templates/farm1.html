@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Farm 2
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block main %}
+    <div text-align="center" style="background-color:white">
+        <div class="hero-text">
+
+            <p><img src="/static/img/farmerlogo_b.png"><br><br>
+            </p>
+            <h1>Farm 1</h1>
+            <p>Current Status: {{ status }}</p>
+            <form action="/farm2" method="post">
+                <p>Auto-Water Monitoring System</p>
+                <button id="btn" type="submit" value="on" name="system">On System</button>
+                <button id="btn" type="submit" value="off" name="system">Off System</button>
+                <hr>
+                <p>Farm-Light</p>
+                <button id="btn" type="submit" value="on" name="light">On Light</button>
+                <button id="btn" type="submit" value="off" name="light">Off Light</button>
+            </form>
+            <br>
+        </div>
+    </div>
+
+{% endblock %}

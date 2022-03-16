@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block main %}
+    <div text-align="center" style="background-color:white">
+        <div class="hero-text">
+
+            <p><img src="/static/img/farmerlogo_b.png"><br><br>
+            </p>
+            <a href="/farm1" id="btn" style="margin:20px;">Farm 1</a><hr>
+            <a href="/farm2" id="btn" style="margin:20px;">Farm 2</a>
+            <br>
+        </div>
+    </div>
+
+{% endblock %}
