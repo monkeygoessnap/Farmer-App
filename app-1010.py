@@ -6,20 +6,20 @@ import json
 
 app = Flask(__name__)
 
-messages1 = []
-messages2 = []
-messages3 = []
+messages1 = ["-"]
+messages2 = ["-"]
+messages3 = ["-"]
 
 def on_message1(client, userdata, msg):
-    messages1.append(msg.payload.decode("utf-8"))
+    messages1[0] = msg.payload.decode("utf-8")
     # print(msg.payload.decode("utf-8"))
 
 def on_message2(client, userdata, msg):
-    messages2.append(msg.payload.decode("utf-8"))
+    messages2[0] = msg.payload.decode("utf-8")
     # print(msg.payload.decode("utf-8"))
 
 def on_message3(client, userdata, msg):
-    messages3.append(msg.payload.decode("utf-8"))
+    messages3[0] = msg.payload.decode("utf-8")
     # print(msg.payload.decode("utf-8"))
 
 client1 = mqtt.Client()
@@ -93,10 +93,10 @@ def farm1():
             light_bright(client1)
         time.sleep(1)
         if len(messages2) > 0:
-            status2 = messages2.pop()
+            status2 = messages2[0]
 
         if len(messages1) > 0:
-            status1 = messages1.pop()
+            status1 = messages1[0]
 
     return render_template("farm1.html", l_status=status1, s_status=status2)
 
@@ -109,7 +109,7 @@ def farm2():
         pass
 
     if len(messages3) > 0:
-        status3 = messages3.pop()
+        status3 = messages3[0]
     return render_template("watertank.html", w_status=status3)
 
 if __name__ == "__main__":
