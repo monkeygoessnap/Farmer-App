@@ -9,7 +9,7 @@ Our aim for this project is to develop a smart farm consisting of an auto-wateri
 ## Things required
 - 2 Raspberrypis
 - 2 FC-28 Soil Moisture Sensor
-- 1 5v submersible pump
+- 1 5v submersible pump (with small pipe)
 - 1 relay module
 - 1 3x 1.5v AA battery pack
 - Jumper cables
