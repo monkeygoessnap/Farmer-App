@@ -1,5 +1,6 @@
 # CSC1010 Application (Farmer)
 ![farmerlogo_b](https://user-images.githubusercontent.com/77936767/161534115-7a5319bc-3a55-4c98-b1bc-450a4187f9ac.png)
+
 Smart farm with auto-watering system (IoT)
 
 ## Objective
