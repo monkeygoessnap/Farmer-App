@@ -1,7 +1,6 @@
 # CSC1010 Application (Farmer)
 ![farmerlogo_b](https://user-images.githubusercontent.com/77936767/161534115-7a5319bc-3a55-4c98-b1bc-450a4187f9ac.png)
-
-## Smart farm with auto-watering system (IoT)
+Smart farm with auto-watering system (IoT)
 
 ## Objective
 Our aim for this project is to develop a smart farm consisting of an auto-watering system, lights and water-level detections controlled by IoT (Internet of Things) devices communicating through MQTT to an WebApp where users will be able to control the various components and see the statuses of the farm.
@@ -24,6 +23,13 @@ Our aim for this project is to develop a smart farm consisting of an auto-wateri
 
 ### Raspberrypi 2 (To control light and read status of external tank)
 ![1010Project - B_bb](https://user-images.githubusercontent.com/77936767/161534882-1ef22977-c2a6-41a4-8e57-7f40d7494323.png)
+
+## How to run
+- App is already deployed to Heroku [App-1010](https://app-1010.herokuapp.com/)
+- Set up Raspberrypi 1 and Raspberrypi 2 according to the setups
+- Make sure pi1.py and pi2.py files are in the respective Raspberrypis
+- Set up the Smart Farm with the packet tracer diagrams and overflow as a guide
+- Once system is connected properly and switched on, with the respective python scripts running on the Raspberrypis, you should be able to control the system with help of the application, and see the return statuses.
 
 ## Overview
 <img width="960" alt="overview" src="https://user-images.githubusercontent.com/77936767/161534174-b62ef6b7-7348-47b3-8885-6f70a111200a.png">
